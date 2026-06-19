@@ -1,0 +1,23 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI';
+}
+.navbar {
+    padding: 10px;
+    box-shadow: 0 4px 10px grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+.navbar ul li a {
+    font-size: 15px;
+}
+.hero {
+    background-image: url(im);
+}
