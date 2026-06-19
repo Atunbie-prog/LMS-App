@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In — LearnHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/log_in.css') }}">
+</head>
+<body>
+
+<div class="page-wrap">
+
+    <div class="login-left">
+        <a href="{{ url_for('home') }}" class="logo">LearnHub</a>
+        <div class="left-content">
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=800&q=80&fit=crop" alt="Student studying" class="side-image">
+            <div class="left-quote">
+                <p>Education is the most powerful weapon you can use to change the world.</p>
+                <span>Nelson Mandela</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-right">
+        <div class="form-box">
+
+            <div class="form-header">
+                <h1>Welcome back</h1>
+                <p>Log in to continue your learning journey.</p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="btn-submit">Log In</button>
+            </form>
+
+            <p class="switch-link">Don't have an account? <a href="{{ url_for('signup') }}">Sign up free</a></p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

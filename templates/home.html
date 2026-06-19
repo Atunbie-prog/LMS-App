@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnHub — Online Courses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="{{ url_for('home') }}" class="logo">LearnHub</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="{{ url_for('register_publisher') }}">Teach</a></li>
+            <li><a href="{{ url_for('login') }}" class="btn-outline">Log In</a></li>
+            <li><a href="{{ url_for('signup') }}" class="btn-solid">Get Started</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" onclick="toggleNav()">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-text">
+        <span class="hero-tag">Online Learning Platform</span>
+        <h1>Build Skills That Actually Matter</h1>
+        <p>Thousands of courses from verified publishers, on your schedule. Start free, grow fast.</p>
+        <div class="hero-cta">
+            <a href="{{ url_for('signup') }}" class="btn-solid">Start Learning</a>
+            <a href="{{ url_for('register_publisher') }}" class="btn-outline">Become a Publisher</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><strong>12,000+</strong><span>Learners</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><strong>400+</strong><span>Courses</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><strong>80+</strong><span>Publishers</span></div>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80&fit=crop" alt="Students learning together">
+    </div>
+</section>
+
+<section class="categories-strip" id="courses">
+    <div class="inner">
+        <div class="strip-label">Browse by Category</div>
+        <div class="category-pills">
+            {% if courses_by_category %}
+                {% for category in courses_by_category %}
+                <a href="#cat-{{ category|lower|replace(' ', '-') }}" class="pill">
+                    {{ category }}
+                    <span class="pill-count">{{ courses_by_category[category]|length }}</span>
+                </a>
+                {% endfor %}
+            {% else %}
+                <span class="pill">Programming</span>
+                <span class="pill">Marketing</span>
+                <span class="pill">Design</span>
+                <span class="pill">Business</span>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% if courses_by_category %}
+    {% for category, courses in courses_by_category.items() %}
+    <section class="course-section" id="cat-{{ category|lower|replace(' ', '-') }}">
+        <div class="inner">
+            <div class="section-head">
+                <h2>{{ category }}</h2>
+                <span class="count-tag">{{ courses|length }} course{{ 's' if courses|length != 1 }}</span>
+            </div>
+            <div class="course-grid">
+                {% for course in courses %}
+                <div class="course-card">
+                    <div class="card-thumb">
+                        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=500&q=80&fit=crop" alt="{{ course.name }}">
+                        <span class="card-cat">{{ course.category }}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-publisher">{{ course.brand_name }}</p>
+                        <h3>{{ course.name }}</h3>
+                        <p class="card-desc">{{ course.description }}</p>
+                        <div class="card-foot">
+                            <span class="price">
+                                {% if course.price and course.price > 0 %}
+                                    ${{ "%.2f"|format(course.price) }}
+                                {% else %}
+                                    Free
+                                {% endif %}
+                            </span>
+                            <button class="btn-enroll">Enroll</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endfor %}
+
+{% else %}
+<section class="course-section">
+    <div class="inner">
+        <div class="section-head">
+            <h2>Featured Courses</h2>
+        </div>
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="card-thumb">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80&fit=crop" alt="Study">
+                    <span class="card-cat">Exams</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-publisher">LearnHub</p>
+                    <h3>WAEC | JAMB | NECO | GCE</h3>
+                    <p class="card-desc">Structured exam prep to get you into your university of choice.</p>
+                    <div class="card-foot">
+                        <span class="price">Free</span>
+                        <a href="https://studyzone.ng" target="_blank" class="btn-enroll">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="card-thumb">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80&fit=crop" alt="Marketing">
+                    <span class="card-cat">Marketing</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-publisher">LearnHub</p>
+                    <h3>Affiliate Marketing</h3>
+                    <p class="card-desc">Earn online from the comfort of your own space.</p>
+                    <div class="card-foot">
+                        <span class="price">$29.99</span>
+                        <button class="btn-enroll">Enroll</button>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="card-thumb">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&q=80&fit=crop" alt="AI">
+                    <span class="card-cat">Technology</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-publisher">LearnHub</p>
+                    <h3>AI Automation</h3>
+                    <p class="card-desc">Learn how artificial intelligence is reshaping the future of work.</p>
+                    <div class="card-foot">
+                        <span class="price">$49.99</span>
+                        <button class="btn-enroll">Enroll</button>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="card-thumb">
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=500&q=80&fit=crop" alt="Writing">
+                    <span class="card-cat">Writing</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-publisher">LearnHub</p>
+                    <h3>Ghost Writing</h3>
+                    <p class="card-desc">Master the art of writing professionally for others.</p>
+                    <div class="card-foot">
+                        <span class="price">$19.99</span>
+                        <button class="btn-enroll">Enroll</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="why-section">
+    <div class="inner why-grid">
+        <div class="why-image">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=700&q=80&fit=crop" alt="Instructor teaching">
+        </div>
+        <div class="why-text">
+            <span class="hero-tag">Why LearnHub</span>
+            <h2>Real Knowledge, Real Results</h2>
+            <div class="why-points">
+                <div class="point">
+                    <div class="point-icon">01</div>
+                    <div>
+                        <strong>Learn from verified publishers</strong>
+                        <p>Every publisher goes through a registration process. No random content.</p>
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-icon">02</div>
+                    <div>
+                        <strong>Your pace, your schedule</strong>
+                        <p>Access course content anytime. No fixed schedules or deadlines.</p>
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-icon">03</div>
+                    <div>
+                        <strong>Affordable pricing</strong>
+                        <p>Quality education does not have to be expensive. Many courses start free.</p>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ url_for('signup') }}" class="btn-solid">Join for Free</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="inner footer-inner">
+        <div class="footer-brand">
+            <span class="logo">LearnHub</span>
+            <p>Quality education for everyone, from anywhere.</p>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-copy">2026 LearnHub. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

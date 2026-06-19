@@ -1,0 +1,362 @@
+/* ══════════════════════════════════════
+   LEARNHUB — style.css (signup)
+   ══════════════════════════════════════ */
+
+:root {
+    --green-900: #0f3d13;
+    --green-800: #154d1b;
+    --green-700: #1b5e20;
+    --green-600: #2e7d32;
+    --green-500: #43a047;
+    --green-accent: #7fd88a;
+
+    --white: #ffffff;
+    --ink: #1c2421;
+    --ink-soft: #5b6661;
+    --placeholder: #a9b3ae;
+    --border: #e2e6e3;
+    --bg-input: #fafbfa;
+
+    --success-bg: #e8f5e9;
+    --success-text: #1b5e20;
+    --danger-bg: #fdecea;
+    --danger-text: #b71c1c;
+    --warning-bg: #fff8e1;
+    --warning-text: #e65100;
+    --info-bg: #f1f8e9;
+    --info-text: #33691e;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --shadow-btn: 0 8px 20px rgba(27, 94, 32, 0.28);
+    --shadow-btn-hover: 0 10px 26px rgba(27, 94, 32, 0.38);
+    --shadow-focus: 0 0 0 3px rgba(46, 125, 50, 0.14);
+
+    --font-base: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+    font-family: var(--font-base);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE SHELL ── */
+.page {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ── LEFT PANEL: BRAND / GRADIENT ── */
+.brand-panel {
+    position: relative;
+    flex: 1 1 46%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3.2rem 3.2rem 2.6rem;
+    background: linear-gradient(160deg, var(--green-900) 0%, var(--green-700) 52%, var(--green-600) 100%);
+    color: var(--white);
+    overflow: hidden;
+}
+
+.brand-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    opacity: 0.5;
+    animation: drift 30s linear infinite;
+}
+
+@keyframes drift {
+    from { background-position: 0 0; }
+    to   { background-position: 130px 130px; }
+}
+
+.brand-panel::after {
+    content: "";
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    right: -180px;
+    bottom: -160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(127, 216, 138, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.brand-mark {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.brand-mark .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    box-shadow: 0 0 0 5px rgba(127, 216, 138, 0.18);
+}
+
+.brand-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 380px;
+}
+
+.brand-copy h1 {
+    font-size: 2.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.9rem;
+}
+
+.brand-copy p {
+    font-size: 0.97rem;
+    color: rgba(255,255,255,0.78);
+    max-width: 340px;
+}
+
+/* progress dots — signature element: a learner's path */
+.path-track {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 2.4rem;
+}
+
+.path-track .seg {
+    width: 34px;
+    height: 2px;
+    background: rgba(255,255,255,0.22);
+}
+
+.path-track .node {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    flex-shrink: 0;
+}
+
+.path-track .node.is-active {
+    background: var(--green-accent);
+    box-shadow: 0 0 0 4px rgba(127, 216, 138, 0.2);
+    animation: pulse 2.6s var(--ease) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(127, 216, 138, 0.2); }
+    50%      { box-shadow: 0 0 0 7px rgba(127, 216, 138, 0.1); }
+}
+
+.path-label {
+    position: relative;
+    z-index: 1;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 0.65rem;
+    letter-spacing: 0.02em;
+}
+
+.testimonial {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    padding-top: 1.4rem;
+    font-size: 0.86rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 360px;
+}
+
+.testimonial strong {
+    display: block;
+    color: var(--white);
+    font-size: 0.82rem;
+    margin-top: 0.6rem;
+}
+
+/* ── RIGHT PANEL: FORM ── */
+.form-panel {
+    flex: 1 1 54%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    padding: 2.5rem 2rem;
+}
+
+.form-wrap {
+    width: 100%;
+    max-width: 380px;
+}
+
+.form-wrap > .heading {
+    margin-bottom: 1.8rem;
+}
+
+.form-wrap > .heading h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+}
+
+.form-wrap > .heading p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+}
+
+.form-wrap > .heading p a {
+    color: var(--green-700);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(27,94,32,0.3);
+    transition: border-color 0.2s var(--ease);
+}
+
+.form-wrap > .heading p a:hover,
+.form-wrap > .heading p a:focus-visible {
+    border-color: var(--green-700);
+}
+
+/* ── FLASH MESSAGES ── */
+#flash-messages {
+    margin-bottom: 1.1rem;
+}
+
+.flash {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+    border-left: 3px solid;
+    border-radius: var(--radius-sm);
+}
+
+.flash + .flash {
+    margin-top: 0.6rem;
+}
+
+.flash.success { background: var(--success-bg); color: var(--success-text); border-color: var(--success-text); }
+.flash.danger  { background: var(--danger-bg);  color: var(--danger-text);  border-color: var(--danger-text); }
+.flash.warning { background: var(--warning-bg); color: var(--warning-text); border-color: var(--warning-text); }
+.flash.info    { background: var(--info-bg);    color: var(--info-text);    border-color: var(--info-text); }
+
+/* ── FORM ── */
+#signup-form { width: 100%; }
+
+.field { margin-bottom: 1.3rem; }
+
+#signup-form label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+}
+
+#signup-form input {
+    display: block;
+    width: 100%;
+    padding: 0.78rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-input);
+    font-family: inherit;
+    font-size: 0.93rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+#signup-form input::placeholder { color: var(--placeholder); }
+
+#signup-form input:hover { border-color: #c9d1cb; }
+
+#signup-form input:focus {
+    border-color: var(--green-600);
+    background: var(--white);
+    box-shadow: var(--shadow-focus);
+}
+
+#signup-form input:invalid:not(:placeholder-shown) {
+    border-color: var(--danger-text);
+}
+
+.field-hint {
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    margin-top: 0.4rem;
+}
+
+#signup-submit {
+    display: block;
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 0.4rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--green-600), var(--green-700));
+    background-size: 140% 140%;
+    background-position: 0% 50%;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: var(--shadow-btn);
+    transition: box-shadow 0.25s var(--ease), background-position 0.45s var(--ease), transform 0.15s var(--ease);
+}
+
+#signup-submit:hover {
+    background-position: 100% 50%;
+    box-shadow: var(--shadow-btn-hover);
+}
+
+#signup-submit:active { transform: translateY(1px); }
+
+#signup-submit:focus-visible {
+    outline: 2px solid var(--green-700);
+    outline-offset: 3px;
+}
+
+#signup-submit:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 880px) {
+    .page { flex-direction: column; }
+    .brand-panel { flex: none; padding: 2.4rem 1.8rem; min-height: 280px; }
+    .testimonial { display: none; }
+    .form-panel { padding: 2.4rem 1.6rem 3rem; }
+}
+
+@media (max-width: 480px) {
+    .brand-copy h1 { font-size: 1.6rem; }
+    .form-wrap > .heading h2 { font-size: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}

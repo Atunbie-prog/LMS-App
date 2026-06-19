@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Publisher — LearnHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_publisher.css') }}">
+</head>
+<body>
+
+<nav class="topbar">
+    <a href="{{ url_for('home') }}" class="logo">LearnHub</a>
+    <a href="{{ url_for('home') }}" class="back-link">Back to Home</a>
+</nav>
+
+<div class="page-wrap">
+
+    <div class="pub-left">
+        <div class="pub-image">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&q=80&fit=crop" alt="Instructor teaching a class">
+        </div>
+        <div class="pub-info">
+            <h2>Share your knowledge with thousands of learners</h2>
+            <p>Join over 80 publishers already earning on LearnHub. Create courses, set your price, and grow your audience.</p>
+            <div class="pub-perks">
+                <div class="perk">
+                    <div class="perk-num">01</div>
+                    <div>
+                        <strong>Full control over your content</strong>
+                        <p>Create, edit, and delete your courses anytime from your dashboard.</p>
+                    </div>
+                </div>
+                <div class="perk">
+                    <div class="perk-num">02</div>
+                    <div>
+                        <strong>Set your own price</strong>
+                        <p>Free or paid. You decide what your knowledge is worth.</p>
+                    </div>
+                </div>
+                <div class="perk">
+                    <div class="perk-num">03</div>
+                    <div>
+                        <strong>Reach real learners</strong>
+                        <p>Your courses go live immediately and are visible to all registered users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pub-right">
+        <div class="form-box">
+
+            <div class="form-header">
+                <span class="badge">Publisher Account</span>
+                <h1>Become a Publisher</h1>
+                <p>Fill in your details below. Takes less than two minutes.</p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('register_publisher') }}" method="POST" class="pub-form">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="businessname">Brand / Business Name</label>
+                    <input type="text" id="businessname" name="businessname" placeholder="Shown on every course you publish" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="publisher@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+234 800 000 0000" required>
+                </div>
+                <button type="submit" class="btn-submit">Create Publisher Account</button>
+            </form>
+
+            <p class="switch-link">Already a publisher? <a href="{{ url_for('publisher_dashboard') }}">Go to Dashboard</a></p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
